@@ -24,6 +24,7 @@ class Sherpa < Formula
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
+      --with-sqlite3=#{Formula["sqlite3"].opt_prefix}
     ]
 
     if build.with? "mpi"
