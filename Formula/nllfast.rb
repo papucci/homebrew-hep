@@ -29,7 +29,7 @@ class Nllfast < Formula
     sha256 '14ee14794a8fa42c6abad2a0fe2c0b9738cb065a115116ab4dff7848e0b96599'
   end
 
-  depends_on :fortran
+  depends_on "gcc" # for gfortran
 
   def install
     (buildpath/'13TeV').install Dir['*.{grid,f}']

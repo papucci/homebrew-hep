@@ -5,7 +5,7 @@ class Nnllfast < Formula
   version "1.0"
   sha256 '5def31d667b3c19d90492e20e88b2dd68770c983c975d18db794317492c49720'
 
-  depends_on :fortran
+  depends_on "gcc" # for gfortran
 
   def install
     system "gfortran ./*.f -o ./nnllfast"
