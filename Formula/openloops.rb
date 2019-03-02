@@ -12,13 +12,13 @@ class Openloops < Formula
     sha256 "2ff311f8bd08e6f6377e73f7848bc4baffe45cce3b56907bf3aa20efbcbe6431" => :el_capitan
   end
 
-  depends_on "gcc" # for gfortran
   depends_on "scons" => :build
+  depends_on "gcc" # for gfortran
 
   patch :DATA
 
   def install
-    scons
+    system "scons"
     cp_r ".", prefix
     bin.install_symlink prefix/"openloops"
   end
@@ -29,7 +29,7 @@ class Openloops < Formula
 
     These process libraries are lost if OpenLoops is uninstalled.
 
-    EOS
+  EOS
   end
 
   test do

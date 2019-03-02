@@ -1,13 +1,13 @@
 class Topdrawer < Formula
   desc "SLAC interface for generating physics graphs"
-  homepage "http://www.pa.msu.edu/reference/topdrawer-docs"
+  homepage "https://www.pa.msu.edu/reference/topdrawer-docs"
   url "http://ftp.riken.jp/pub/iris/topdrawer/topdrawer.tar.gz"
   version "1.4e"
   sha256 "2a44dffd19e243aa261b4e3cd2b0fe6247ced97ee10e3271f8c7eeae8cb62401"
 
-  depends_on "homebrew/head-only/f2c" => :build
+  depends_on "FranklinChen/tap/f2c" => :build
   depends_on "gcc" => :build
-  depends_on "homebrew/x11/imake" => :build
+  depends_on "imake" => :build
   depends_on "ugs" => :build
   depends_on :x11
 
