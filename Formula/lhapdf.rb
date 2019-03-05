@@ -12,7 +12,7 @@ class Lhapdf < Formula
   end
 
   head do
-    url "http://lhapdf.hepforge.org/hg/lhapdf", :using => :hg
+    url "https://phab.hepforge.org/source/lhapdfhg/", :using => :hg
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -120,5 +120,3 @@ index 8687cff..8582e15 100644
 -            print('')
 
      return True
-
-
