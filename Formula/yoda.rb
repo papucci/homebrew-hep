@@ -29,7 +29,7 @@ class Yoda < Formula
   depends_on "python@2"
 
   def install
-    ENV.cxx11
+    # ENV.cxx11
 
     args = %W[
       --disable-debug
