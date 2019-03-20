@@ -36,6 +36,7 @@ class Yoda < Formula
       --prefix=#{prefix}
     ]
 
+    ENV.append "PYTHON_VERSION", "2"
     if build.with? "root"
       args << "--enable-root"
       ENV.append "PYTHONPATH", Formula["root"].opt_prefix/"lib/root" if build.with? "test"
