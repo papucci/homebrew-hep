@@ -26,6 +26,7 @@ class Yoda < Formula
 
   depends_on "numpy" => :optional
   depends_on "root" => :optional
+  depends_on "python@2"
 
   def install
     ENV.cxx11
@@ -37,6 +38,7 @@ class Yoda < Formula
     ]
 
     ENV.append "PYTHON_VERSION", "2"
+
     if build.with? "root"
       args << "--enable-root"
       ENV.append "PYTHONPATH", Formula["root"].opt_prefix/"lib/root" if build.with? "test"
