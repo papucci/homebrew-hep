@@ -64,16 +64,17 @@ class Madgraph5Amcatnlo < Formula
 
   end
 
-  def caveats; <<~EOS
-    To shower aMC@NLO events with herwig++ or pythia8, first install
-    them via homebrew and then enter in the mg5_aMC interpreter:
+  def caveats
+    <<~EOS
+      To shower aMC@NLO events with herwig++ or pythia8, first install
+      them via homebrew and then enter in the mg5_aMC interpreter:
 
-      set hepmc_path #{HOMEBREW_PREFIX}
-      set thepeg_path #{HOMEBREW_PREFIX}
-      set hwpp_path #{HOMEBREW_PREFIX}
-      set pythia8_path #{HOMEBREW_PREFIX}
+        set hepmc_path #{HOMEBREW_PREFIX}
+        set thepeg_path #{HOMEBREW_PREFIX}
+        set hwpp_path #{HOMEBREW_PREFIX}
+        set pythia8_path #{HOMEBREW_PREFIX}
 
-  EOS
+    EOS
   end
 
   test do
