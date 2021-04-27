@@ -34,6 +34,8 @@ class Lhapdf < Formula
     system "./configure", *args
     system "make"
     system "make", "install"
+
+    inreplace prefix/"bin/lhapdf",  "/usr/bin/env python", "/usr/bin/env python2"
   end
 
   def caveats

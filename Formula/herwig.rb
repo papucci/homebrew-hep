@@ -48,6 +48,9 @@ class Herwig < Formula
     # Herwig runs ThePEG during the make install and make check phases
     download_pdfs(buildpath/"pdf-sets", %w[MMHT2014lo68cl MMHT2014nlo68cl])
 
+    ENV["FCFLAGS"] = "-w -fallow-argument-mismatch -O2"
+    ENV["FFLAGS"] = "-w -fallow-argument-mismatch -O2"
+
     system "autoreconf", "-i" if build.head?
     system "./configure", *args
     system "make"
