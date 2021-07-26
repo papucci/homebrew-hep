@@ -18,7 +18,6 @@ Homebrew-hep is a Mac package manager for HEP programs, based on [Homebrew](http
 Remember to regularly `brew update`! More [detailed installation instructions](#detailed-installation-instructions) are found below.
 
 ## Available packages ##
-All packages are tested on OS X 10.9 (Mavericks) on [Travis CI](https://travis-ci.org/) virtual machines. The build status of each package can be viewed [here](https://travis-ci.org/davidchall/homebrew-hep) - just click on an individual job to see a build log for that package.
 
 The available packages are:
 
@@ -52,8 +51,7 @@ The available packages are:
 
 Other useful Homebrew packages:
 
-* `root` (`brew tap homebrew/science`)
-* `python` (see [here](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md) for why)
+* `root` (`brew tap brewsci/science`)
 * `bash-completion` (enables tab-completion for some HEP packages)
 
 If your favourite package is missing, please request it on the [issues page](https://github.com/davidchall/homebrew-hep/issues) or consider making a [contribution](#contributing).

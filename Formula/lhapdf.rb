@@ -4,13 +4,6 @@ class Lhapdf < Formula
   url "https://www.hepforge.org/archive/lhapdf/LHAPDF-6.3.0.tar.gz"
   sha256 "ed4d8772b7e6be26d1a7682a13c87338d67821847aa1640d78d67d2cef8b9b5d"
 
-  # bottle do
-  #   root_url "https://dl.bintray.com/davidchall/bottles-hep"
-  #   sha256 high_sierra: "c42504e9609b05383b06249023a0d3d1a55e80d8b3a7ab716e993142d78382c7"
-  #   sha256 sierra:      "550b93a493c3b30fcdb5f2b2326d53758fb8f5d0d76a645eecda6fb239170c05"
-  #   sha256 el_capitan:  "c61871005b6f6207946de9ae3f5f710a9ec5e695f324b03ac26dc554a547d432"
-  # end
-
   head do
     url "http://lhapdf.hepforge.org/hg/lhapdf", using: :hg
 
