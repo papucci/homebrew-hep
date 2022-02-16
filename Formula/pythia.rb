@@ -1,9 +1,9 @@
 class Pythia < Formula
   desc "Monte Carlo event generator"
   homepage "http://home.thep.lu.se/~torbjorn/Pythia.html"
-  url "https://pythia.org/download/pythia82/pythia8243.tgz"
-  version "8.243"
-  sha256 "067219fb737bfd379ddb602b609ff5cd04f0569782f8d9d59e403264fd8a21f3"
+  url "https://pythia.org/download/pythia83/pythia8306.tgz"
+  version "8.306"
+  sha256 "734803b722b1c1b53c8cf2f0d3c30747c80fc2dde5e0ba141bc9397dad37a8f6"
 
   depends_on "boost"
   depends_on "hepmc"
