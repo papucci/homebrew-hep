@@ -4,8 +4,6 @@ class Madgraph5Amcatnlo < Formula
   url "https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.0.tar.gz"
   sha256 "ea14cf6daa5b6c53dba1455c086e762cb8042d342451c9b88b2bde81098bf264"
 
-  bottle :unneeded
-
   depends_on "fastjet"
   depends_on "gcc" # for gfortran
 
