@@ -1,8 +1,23 @@
 class Yoda < Formula
+  include Language::Python::Shebang
+
   desc "Yet more Objects for Data Analysis"
   homepage "https://yoda.hepforge.org"
-  url "https://yoda.hepforge.org/downloads/?f=YODA-1.7.5.tar.bz2"
-  sha256 "7b1dc7bb380d0fbadce12072f5cc21912c115e826182a3922d864e7edea131db"
+  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.5.tar.gz"
+  sha256 "f07704f046d12b35814acc5d9e12675d98d54391b794b57d72ac11349c74a5bf"
+  license "GPL-3.0-only"
+
+  livecheck do
+    url "https://yoda.hepforge.org/downloads/"
+    regex(/href=.*?YODA[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
+  bottle do
+    root_url "https://ghcr.io/v2/davidchall/hep"
+    sha256 cellar: :any, monterey: "7efae44adea74025f588c798c3e7c8c060596a49941f5eb59deee0479bed80b3"
+    sha256 cellar: :any, big_sur:  "56903bd59d21e8e54ea1c2d2d41a2576f204e0c3b0dab58564d697fc07774cbb"
+    sha256 cellar: :any, catalina: "a188afc53fad7b784fcb7d195ca820a2f2c9d2bd91e85c7083e6e9ad3ed0dcad"
+  end
 
   head do
     url "http://yoda.hepforge.org/hg/yoda", using: :hg
@@ -14,12 +29,13 @@ class Yoda < Formula
 
   option "with-test", "Test during installation"
 
+  depends_on "python@3.9"
   depends_on "numpy" => :optional
   depends_on "root" => :optional
   depends_on "python"
 
   def install
-    # ENV.cxx11
+    ENV.prepend_path "PATH", Formula["python@3.9"].opt_libexec/"bin"
 
     args = %W[
       --disable-debug
@@ -45,11 +61,13 @@ class Yoda < Formula
     system "make", "check" if build.with? "test"
     system "make", "install"
 
-    bash_completion.install share/"YODA/yoda-completion"
+    rewrite_shebang detected_python_shebang, *bin.children
   end
 
   test do
+    python = Formula["python@3.9"].opt_bin/"python3"
+    system python, "-c", "import yoda"
     system bin/"yoda-config", "--version"
-    system "python", "-c", "import yoda; yoda.version()"
+    system bin/"yodastack", "--help"
   end
 end

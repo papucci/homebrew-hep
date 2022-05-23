@@ -1,8 +1,23 @@
+require_relative "../lib/download_pdfs"
+
 class Herwig < Formula
   desc "Monte Carlo event generator"
   homepage "https://herwig.hepforge.org"
-  url "https://herwig.hepforge.org/downloads/Herwig-7.1.4.tar.bz2"
-  sha256 "bdd55ac0dcc9e96d2f64fe6eaa4d7df38709e9fc3446fe16eae3200cbe0c99ab"
+  url "https://herwig.hepforge.org/downloads/Herwig-7.2.3.tar.bz2"
+  sha256 "5599899379b01b09e331a2426d78d39b7f6ec126db2543e9d340aefe6aa50f84"
+  license "GPL-3.0-only"
+
+  livecheck do
+    url "https://herwig.hepforge.org/downloads"
+    regex(/href=.*?Herwig[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
+  bottle do
+    root_url "https://ghcr.io/v2/davidchall/hep"
+    sha256 monterey: "23e0a0115b0077bf8b8fe4367e2e384e324a6ecaba6e16cf470d5140e5214462"
+    sha256 big_sur:  "3349d0dbf8d52bca6bbd522d42035b04183bf75755621600e0d154db56b70bfc"
+    sha256 catalina: "f21c7d39637ac707d8a461c702322d43be7ca104d508973a2302fca1eb8eaffe"
+  end
 
   head do
     url "http://herwig.hepforge.org/hg/herwig", using: :hg
@@ -16,20 +31,13 @@ class Herwig < Formula
   option "with-test", "Test during installation"
 
   depends_on "boost"
+  depends_on "fastjet"
   depends_on "gcc" # for gfortran
   depends_on "gsl"
-  depends_on "hepmc"
+  depends_on "hepmc3"
   depends_on "thepeg"
-  depends_on "madgraph5_amcatnlo" => :optional
-  depends_on "openloops" => :optional
-  depends_on "vbfnlo" => :optional
 
-  cxxstdlib_check :skip
-
-  def download_pdfs(dest, pdfs)
-    pdfs.each { |pdf| quiet_system "lhapdf", "--pdfdir=#{dest}", "install", pdf }
-    ENV["LHAPDF_DATA_PATH"] = dest
-  end
+  patch :DATA
 
   def install
     args = %W[
@@ -37,16 +45,16 @@ class Herwig < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
+      --with-boost=#{Formula["boost"].opt_prefix}
+      --with-fastjet=#{Formula["fastjet"].opt_prefix}
+      --with-gsl=#{Formula["gsl"].opt_prefix}
       --with-thepeg=#{Formula["thepeg"].opt_prefix}
-      --enable-stdcxx11
     ]
 
-    args << "--with-madgraph=#{Formula["madgraph5_amcatnlo"].opt_prefix}" if build.with? "madgraph5_amcatnlo"
-    args << "--with-openloops=#{Formula["openloops"].opt_prefix}"         if build.with? "openloops"
-    args << "--with-vbfnlo=#{Formula["vbfnlo"].opt_prefix}"               if build.with? "vbfnlo"
+    # Herwig needs PDFs during the make install and make check phases
+    download_pdfs(buildpath/"pdf-sets", %w[CT14lo CT14nlo])
 
-    # Herwig runs ThePEG during the make install and make check phases
-    download_pdfs(buildpath/"pdf-sets", %w[MMHT2014lo68cl MMHT2014nlo68cl])
+    ENV["FCFLAGS"] = "-fallow-argument-mismatch -fno-range-check"
 
     ENV["FCFLAGS"] = "-w -fallow-argument-mismatch -O2"
     ENV["FFLAGS"] = "-w -fallow-argument-mismatch -O2"
@@ -59,10 +67,21 @@ class Herwig < Formula
   end
 
   test do
-    download_pdfs(testpath/"pdf-sets", %w[MMHT2014lo68cl MMHT2014nlo68cl])
+    download_pdfs(testpath/"pdf-sets", %w[CT14lo CT14nlo])
 
-    system "#{bin}/Herwig", "read", share/"Herwig/LHC.in"
-    system "#{bin}/Herwig", "run", "LHC.run", "-N", "50"
-    ohai "Successfully generated 50 LHC Drell-Yan events."
+    system bin/"Herwig", "read", share/"Herwig/LHC.in"
+    system bin/"Herwig", "run", "LHC.run", "-N", "50"
   end
 end
+
+__END__
+diff --git a/src/defaults/decayers.in.in b/src/defaults/decayers.in.in
+index 8e7e3eb..3be587e 100644
+--- a/src/defaults/decayers.in.in
++++ b/src/defaults/decayers.in.in
+@@ -24505,4 +24505,4 @@ newdef RadiativeHyperon:Ntry 500
+ newdef RadiativeHyperon:Points 10000
+ newdef RadiativeHyperon:GenerateIntermediates 0
+
+-read EvtGenDecayer.in
++@LOAD_EVTGEN_DECAYER@
