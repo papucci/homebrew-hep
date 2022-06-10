@@ -1,9 +1,9 @@
 class Geant4 < Formula
   desc "Simulation toolkit for particle transport through matter"
   homepage "http://geant4.cern.ch"
-  url "http://cern.ch/geant4-data/releases/geant4.10.07.p02.tar.gz"
-  version "10.7.2"
-  sha256 "ee4ae9f103546e92aa3762b253fd1d95d1f2792299951d59c94e7b673eb86b32"
+  url "http://cern.ch/geant4-data/releases/geant4-v11.0.2.tar.gz"
+  version "11.0.2"
+  sha256 "fc038db837312f74e3f8efd10b5d3ca87a999d483d4d8959c60b8a749221ec61"
 
   option "with-g3tog4", "Use G3toG4 Library"
   option "with-gdml", "Use GDML"
@@ -22,8 +22,8 @@ class Geant4 < Formula
   end
 
   resource "G4EMLOW" do
-    url "http://cern.ch/geant4-data/datasets/G4EMLOW.7.13.tar.gz"
-    sha256 "374896b649be776c6c10fea80abe6cf32f9136df0b6ab7c7236d571d49fb8c69"
+    url "http://cern.ch/geant4-data/datasets/G4EMLOW.8.0.tar.gz"
+    sha256 "d919a8e5838688257b9248a613910eb2a7633059e030c8b50c0a2c2ad9fd2b3b"
   end
 
   resource "G4PhotonEvaporation" do
@@ -42,8 +42,8 @@ class Geant4 < Formula
   end
 
   resource "G4PARTICLEXS" do
-    url "http://cern.ch/geant4-data/datasets/G4PARTICLEXS.3.1.1.tar.gz"
-    sha256 "66c17edd6cb6967375d0497add84c2201907a25e33db782ebc26051d38f2afda"
+    url "http://cern.ch/geant4-data/datasets/G4PARTICLEXS.4.0.tar.gz"
+    sha256 "9381039703c3f2b0fd36ab4999362a2c8b4ff9080c322f90b4e319281133ca95"
   end
 
   resource "G4ABLA" do
@@ -72,8 +72,8 @@ class Geant4 < Formula
   end
 
   resource "G4TENDL" do
-    url "http://cern.ch/geant4-data/datasets/G4TENDL.1.3.2.tar.gz"
-    sha256 "3b2987c6e3bee74197e3bd39e25e1cc756bb866c26d21a70f647959fc7afb849"
+    url "http://cern.ch/geant4-data/datasets/G4TENDL.1.4.tar.gz"
+    sha256 "4b7274020cc8b4ed569b892ef18c2e088edcdb6b66f39d25585ccee25d9721e0"
   end
 
   def install
