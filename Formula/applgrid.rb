@@ -1,8 +1,8 @@
 class Applgrid < Formula
   desc "Quickly reproduce NLO calculations with any input PDFs"
   homepage "https://applgrid.hepforge.org"
-  url "https://applgrid.hepforge.org/downloads?f=applgrid-1.6.27.tgz"
-  sha256 "87e64d1a3df7148c20e1f382c9f189ad428cdaf0c3425efa25c2e1b5ba003ad7"
+  url "https://applgrid.hepforge.org/downloads?f=applgrid-1.6.28.tgz"
+  sha256 "df42ed93ab43e467e87f34b90f426ce5b0f988901a6583f200e2254d08e0ca01"
   license "GPL-3.0-only"
 
   livecheck do
@@ -12,9 +12,9 @@ class Applgrid < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "19c2fe49f23f6a9f24440e272cfc7e490e83eda4bf1a0fd89d57605a8ce30548"
-    sha256 cellar: :any, big_sur:  "971209fb409b6577c974b0909de087e662e1fb6f8f5bb6b89d76ce1a24d596ca"
-    sha256 cellar: :any, catalina: "59c4590544e40fe820c342954220e27330fafcb910bf0de399b08fd1be2e5c0e"
+    sha256 cellar: :any, monterey: "b2e7cc54c0371d649ab23120eb916239ead89004de77e0e345cfaf1c5d963a60"
+    sha256 cellar: :any, big_sur:  "dd2847ec25410db823b7e02ef8c3b4e6b9ea911a6c867bc90bb4d8547d926a1a"
+    sha256 cellar: :any, catalina: "11bad5decf5f98bb6341bc16c576e662e788d170076591e1576e974d99d07af4"
   end
 
   depends_on "gcc" # for gfortran

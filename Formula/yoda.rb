@@ -3,8 +3,8 @@ class Yoda < Formula
 
   desc "Yet more Objects for Data Analysis"
   homepage "https://yoda.hepforge.org"
-  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.5.tar.gz"
-  sha256 "f07704f046d12b35814acc5d9e12675d98d54391b794b57d72ac11349c74a5bf"
+  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.6.tar.gz"
+  sha256 "5c57914eb8d8068844560e3a3e545f68d89ca49796dcc0932cdd42ee62064955"
   license "GPL-3.0-only"
 
   livecheck do
@@ -14,9 +14,9 @@ class Yoda < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "7efae44adea74025f588c798c3e7c8c060596a49941f5eb59deee0479bed80b3"
-    sha256 cellar: :any, big_sur:  "56903bd59d21e8e54ea1c2d2d41a2576f204e0c3b0dab58564d697fc07774cbb"
-    sha256 cellar: :any, catalina: "a188afc53fad7b784fcb7d195ca820a2f2c9d2bd91e85c7083e6e9ad3ed0dcad"
+    sha256 cellar: :any, monterey: "0ec3a35c6f5dc9acda350b6262e4fa3cef856f3ba327728ce2aec93118f82641"
+    sha256 cellar: :any, big_sur:  "8817e9daa8c24ab08fb8ef3c1d30863ea702246929942c5ecffaff4cbf909bd8"
+    sha256 cellar: :any, catalina: "387cca231a0d2104b5da40545bc357ef930f0b525cff204a548f9351fb4e24bd"
   end
 
   head do
