@@ -4,6 +4,7 @@ class Topdrawer < Formula
   url "http://ftp.riken.jp/pub/iris/topdrawer/topdrawer.tar.gz"
   version "1.4e"
   sha256 "2a44dffd19e243aa261b4e3cd2b0fe6247ced97ee10e3271f8c7eeae8cb62401"
+  revision 1
 
   livecheck do
     skip "No version information available"
@@ -11,10 +12,9 @@ class Topdrawer < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    rebuild 1
-    sha256 cellar: :any, monterey: "8ff3c466a0ea835513df8a3e605866df1030810d8da57a8f0ef34fe749ed8884"
-    sha256 cellar: :any, big_sur:  "24d08994cc11d9332262433764a26964a1d7e3f5423907c40c5cfe04b0a24235"
-    sha256 cellar: :any, catalina: "0c05c5cb30e729e35b9ac16b0fe8e9f9cc7ffbf980681ec48fed4d928c10d588"
+    sha256 cellar: :any, monterey: "fced6ab599701a8c2ef71c629dd1f40e6a86ed5b45d273b02dc5bf2ebcf86457"
+    sha256 cellar: :any, big_sur:  "ec19a9654b132c40fdf6011942127288f97668a3ec3bf023a0c157b9c06218a0"
+    sha256 cellar: :any, catalina: "c97d412ce50beb096c418122181653c7ea3fc41a3ec3abbd793bfa54a9e4a963"
   end
 
   depends_on "f2c" => :build

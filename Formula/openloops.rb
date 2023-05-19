@@ -3,6 +3,7 @@ class Openloops < Formula
   homepage "https://openloops.hepforge.org"
   url "https://openloops.hepforge.org/downloads?f=OpenLoops-2.1.2.tar.gz"
   sha256 "f52575cae3d70b6b51a5d423e9cd0e076ed5961afcc015eec00987e64529a6ae"
+  revision 1
 
   livecheck do
     url "https://openloops.hepforge.org/downloads"
@@ -11,13 +12,12 @@ class Openloops < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "981e3f2b5601f6839548abeab6a122f5dfe3c5b571659efcbcf5e9a21ee6765b"
-    sha256 cellar: :any, big_sur:  "86fbc11f2e61b0a1e4b23f37952e1249b3da36f52b2fc5dd99a5ba8b30247a1a"
-    sha256 cellar: :any, catalina: "79bad08133f8e46db91580c5659bbcb57b259d717d820d362244ea57fa57b2cc"
+    sha256 cellar: :any, monterey: "561315c9a2a5254b0cf8fdfbdeeb33f909b3c264ac8b4e70c34f474a8d9374b0"
+    sha256 cellar: :any, big_sur:  "fb57cd4648cb5accc694bf43d3e45d6fa1ab0067211f1ce3086bf2c4ad03a522"
+    sha256 cellar: :any, catalina: "8c040c9820241d7739eb4e7838dcdfe0e97d64d3c5753abe56c46bb13714dab8"
   end
 
   depends_on "scons" => :build
-  depends_on arch: :x86_64 # https://github.com/davidchall/homebrew-hep/issues/203
   depends_on "gcc" # for gfortran
 
   patch :DATA

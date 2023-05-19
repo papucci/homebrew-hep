@@ -1,8 +1,8 @@
 class Mcfm < Formula
   desc "Monte Carlo for FeMtobarn processes"
   homepage "https://mcfm.fnal.gov"
-  url "https://mcfm.fnal.gov/downloads/MCFM-10.2.1.tar.gz"
-  sha256 "5b97dd90159efcef227420b49e8eb53b7f1ee0af8d5a6bf8595a29c320afe2dc"
+  url "https://mcfm.fnal.gov/downloads/MCFM-10.2.2.tar.gz"
+  sha256 "15ebd4cb51cafb4af674a2e0a3ec8c02ac88a49565b3265c80719c59c0cc3c9d"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -12,9 +12,8 @@ class Mcfm < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "ea453499fb8feb38613a556ffa80ca7b137f1fa86a4516e603ca921e07a5d6a2"
-    sha256 cellar: :any, big_sur:  "de08ad6a1fba5b8c7e82fbe7024dc4b1de4697dd6f4e576fd720dee893881ec1"
-    sha256 cellar: :any, catalina: "7ca2fd32f3a17b21ed4ea9e27a441c7f7ff53f0670349a0a0b21934745f2a52c"
+    sha256 cellar: :any, monterey: "af86d32b133eed55d90b9a6c09f2839d37c38534609badb08e2c457f4a77fe58"
+    sha256 cellar: :any, big_sur:  "f6da20fbf7a9ebf81ad2a43e4d7dbe4cc9e4495b4e0f92572608e1d2e8e261c7"
   end
 
   option "with-nnlo-vv", "Build NNLO diboson processes (slow compilation)"

@@ -3,8 +3,8 @@ class Yoda < Formula
 
   desc "Yet more Objects for Data Analysis"
   homepage "https://yoda.hepforge.org"
-  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.6.tar.gz"
-  sha256 "5c57914eb8d8068844560e3a3e545f68d89ca49796dcc0932cdd42ee62064955"
+  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.7.tar.gz"
+  sha256 "abff3e56bc360e38b2dd32d49bd962d6e773e97da1d50140ac4703daa1d51c8b"
   license "GPL-3.0-only"
 
   livecheck do
@@ -14,9 +14,9 @@ class Yoda < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "0ec3a35c6f5dc9acda350b6262e4fa3cef856f3ba327728ce2aec93118f82641"
-    sha256 cellar: :any, big_sur:  "8817e9daa8c24ab08fb8ef3c1d30863ea702246929942c5ecffaff4cbf909bd8"
-    sha256 cellar: :any, catalina: "387cca231a0d2104b5da40545bc357ef930f0b525cff204a548f9351fb4e24bd"
+    sha256 cellar: :any, monterey: "ed70e1312d864f0a671a9d7c2767a22771d9cc86b8342f307a71b030711a4a26"
+    sha256 cellar: :any, big_sur:  "acba1f871ace2cb3e0dc2c9f8ff70b901c565b360b79ff9c53fc15e3fbb8205f"
+    sha256 cellar: :any, catalina: "c7fc2ec2794cab2e241fdfd585e979da723c7c6147da9ddf735cec860fc401c1"
   end
 
   head do
@@ -29,13 +29,19 @@ class Yoda < Formula
 
   option "with-test", "Test during installation"
 
-  depends_on "python@3.9"
+  depends_on "python@3.10"
   depends_on "numpy" => :optional
   depends_on "root" => :optional
   depends_on "python"
 
+  patch :DATA
+
+  def python
+    "python3.10"
+  end
+
   def install
-    ENV.prepend_path "PATH", Formula["python@3.9"].opt_libexec/"bin"
+    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
 
     args = %W[
       --disable-debug
@@ -65,9 +71,43 @@ class Yoda < Formula
   end
 
   test do
-    python = Formula["python@3.9"].opt_bin/"python3"
-    system python, "-c", "import yoda"
+    system Formula["python@3.10"].opt_bin/python, "-c", "import yoda"
     system bin/"yoda-config", "--version"
     system bin/"yodastack", "--help"
   end
 end
+
+__END__
+diff --git a/pyext/build.py.in b/pyext/build.py.in
+index cdebf43..6694941 100755
+--- a/pyext/build.py.in
++++ b/pyext/build.py.in
+@@ -35,19 +35,6 @@ libargs = " ".join("-l{}".format(l) for l in libraries)
+
+ ## Python compile/link args
+ pyargs = "-I" + sysconfig.get_config_var("INCLUDEPY")
+-libpys = [os.path.join(sysconfig.get_config_var(ld), sysconfig.get_config_var("LDLIBRARY")) for ld in ["LIBPL", "LIBDIR"]]
+-libpys.extend( glob(os.path.join(sysconfig.get_config_var("LIBPL"), "libpython*.*")) )
+-libpys.extend( glob(os.path.join(sysconfig.get_config_var("LIBDIR"), "libpython*.*")) )
+-libpy = None
+-for lp in libpys:
+-    if os.path.exists(lp):
+-        libpy = lp
+-        break
+-if libpy is None:
+-    print("No libpython found in expected location exiting")
+-    print("Considered locations were:", libpys)
+-    sys.exit(1)
+-pyargs += " " + libpy
+ pyargs += " " + sysconfig.get_config_var("LIBS")
+ pyargs += " " + sysconfig.get_config_var("LIBM")
+ #pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
+@@ -92,7 +79,8 @@ for srcname in srcnames:
+         xlinkargs += " " + "@ROOT_LDFLAGS@ @ROOT_LIBS@"
+
+     ## Assemble the compile & link command
+-    compile_cmd = "  ".join([os.environ.get("CXX", "g++"), "-shared -fPIC", "-o {}.so".format(srcname),
++    compile_cmd = "  ".join([sysconfig.get_config_var("LDCXXSHARED"), "-std=c++11",
++                             "-o {}.so".format(srcname),
+                              srcpath, incargs, xcmpargs, xlinkargs, libargs, pyargs])
+     print("Build command =", compile_cmd)

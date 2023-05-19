@@ -3,6 +3,7 @@ class Chaplin < Formula
   homepage "https://chaplin.hepforge.org"
   url "https://chaplin.hepforge.org/code/chaplin-1.2.tar"
   sha256 "f17c2d985fd4e4ce36cede945450416d3fa940af68945c91fa5d3ca1d76d4b49"
+  revision 1
 
   livecheck do
     url "https://chaplin.hepforge.org/downloads"
@@ -11,9 +12,9 @@ class Chaplin < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "5e542fca01a18571c8534b119f3b9a09aa8cc5ed389e52e2611b52cfd257f519"
-    sha256 cellar: :any, big_sur:  "88ad109eaf179df2bc2cdf831f4486bd3f8bb25ba00f000253c97db0c335b27a"
-    sha256 cellar: :any, catalina: "11f2f2a452a772f4fc14ee0f55ddebc2e658a0e2b9ded387637fafd77de66adc"
+    sha256 cellar: :any, monterey: "6f4be0bee5810c52fbaaa5107932f8a0473fd00ffa51f671fda55b720c33fce1"
+    sha256 cellar: :any, big_sur:  "3603c69604755c2e2a40f548af1b7b94a5f8838b4d5285a24d8cde8405796156"
+    sha256 cellar: :any, catalina: "355b4dd464b705a29ec4054545299d08a07d2e3e4e8b825195caa15baa8e4963"
   end
 
   depends_on "gcc" # for gfortran

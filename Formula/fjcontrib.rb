@@ -1,8 +1,8 @@
 class Fjcontrib < Formula
   desc "Package of contributed add-ons to FastJet"
   homepage "https://fastjet.hepforge.org/contrib/"
-  url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.049.tar.gz"
-  sha256 "ae2ed6206bc6278b65e99a4f78df0eeb2911f301a28fb57b50c573c0d5869987"
+  url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.051.tar.gz"
+  sha256 "76a2ec612c768db3eb6bbaf686d02b05ddb64dde477d185e20df563b52308473"
 
   livecheck do
     url "https://fastjet.hepforge.org/contrib/downloads"
@@ -11,9 +11,8 @@ class Fjcontrib < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any_skip_relocation, monterey: "3fb23ad1e65647fd4d7ecfc539cfd07fdbb4c85c7645e97e112039ef3b850ad5"
-    sha256 cellar: :any_skip_relocation, big_sur:  "9520a2112bb4d35c0dfdf83ef9b10d4b88030e0d40d998a508cc40e01bca7b4e"
-    sha256 cellar: :any_skip_relocation, catalina: "3bc0e9acac14dc6b066a2474723338f04a25e9b093fd92299c2f5ebfcaf29607"
+    sha256 cellar: :any_skip_relocation, monterey: "2acaef923210841c9db699190f5347c72bc8083dcd55d8141fd3f980364c66bf"
+    sha256 cellar: :any_skip_relocation, big_sur:  "ba830b743291d43d59dce4cb77f5e32af5e2111969aa2ddf8f24b992255a0db3"
   end
 
   option "with-test", "Test during installation"

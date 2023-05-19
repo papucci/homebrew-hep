@@ -3,9 +3,10 @@ class Madgraph5Amcatnlo < Formula
 
   desc "Automated LO and NLO processes matched to parton showers"
   homepage "https://launchpad.net/mg5amcnlo"
-  url "https://launchpad.net/mg5amcnlo/3.0/3.4.x/+download/MG5_aMC_v3.4.0.tar.gz"
-  sha256 "6853c311c3641e6f2d1fc99695bb72d4dcf159f9b944f8e7322e085257406611"
+  url "https://launchpad.net/mg5amcnlo/3.0/3.4.x/+download/MG5_aMC_v3.4.2.tar.gz"
+  sha256 "ca8631e10cc384f9d05a4d3311f6cb101eeaa57cb39ab7325ee5d1aec1fe218f"
   license "NCSA"
+  revision 2
 
   livecheck do
     url "https://launchpad.net/mg5amcnlo/+download"
@@ -14,27 +15,23 @@ class Madgraph5Amcatnlo < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "0ad3787c88eb99aea48486603661f5bc0dfe90edb5f68f22000496cf7174a8b4"
-    sha256 cellar: :any, big_sur:  "37de87edae1f740c90f8a88eced928c1ae40140114da351656d737fd1ce9ca46"
-    sha256 cellar: :any, catalina: "94bb5dd4c52373b6b1638efc42c9f2bd0b77ac58f8b0bae53b0485e124f1b424"
+    sha256 cellar: :any, monterey: "622cba4ed27785e89f53e5e2e8c55719870b5cf654b75b4f7692cf75c770b385"
+    sha256 cellar: :any, big_sur:  "d8ae21e5bfcd4319933bf77142305c04e451d4164f03c4710cdc3f12a92f2e0d"
   end
 
   depends_on "fastjet"
   depends_on "gcc" # for gfortran
-  depends_on "python@3.9"
+  depends_on "python@3.10"
+  depends_on "six"
 
-  resource "six" do
-    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
-    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  def python
+    "python3.10"
   end
 
   def install
-    resource("six").stage do
-      system Formula["python@3.9"].opt_bin/"python3", *Language::Python.setup_install_args(prefix)
-    end
-
-    # fix broken dynamic links
-    gfortran_lib = Formula["gcc"].opt_lib/"gcc"/Formula["gcc"].version_suffix
+    # hardcoded paths cause problems on GCC minor version bumps
+    gcc = Formula["gcc"]
+    gfortran_lib = gcc.opt_lib/"gcc"/gcc.any_installed_version.major
     MachO::Tools.change_install_name("vendor/DiscreteSampler/check",
                                      "/opt/local/lib/libgcc/libgfortran.3.dylib",
                                      "#{gfortran_lib}/libgfortran.dylib")

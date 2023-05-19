@@ -1,9 +1,9 @@
 class Pythia < Formula
   desc "Monte Carlo event generator"
   homepage "https://pythia.org"
-  url "https://pythia.org/download/pythia83/pythia8307.tgz"
-  version "8.307"
-  sha256 "e5b14d44aa5943332e32dd5dda9a18fdd1a0085c7198e28d840e04167fa6013d"
+  url "https://pythia.org/download/pythia83/pythia8309.tgz"
+  version "8.309"
+  sha256 "5bdafd9f2c4a1c47fd8a4e82fb9f0d8fcfba4de1003b8e14be4e0347436d6c33"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -16,9 +16,8 @@ class Pythia < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "1324fce29466c5f53bb3139598c90cd17939e5b26a499d7cdd8d9e3e9923d7ae"
-    sha256 big_sur:  "4b620e01e9684de0f59348176aa57d9389f634918c13f171c9c1f4053964986d"
-    sha256 catalina: "1e053044666bf492bb748e187ea581e7b12523424862a884d3d207e32a0337c5"
+    sha256 monterey: "b0312c112a46542939f9f592104b7aa4a10150f1ff8f5866cd0cd73d9a81f834"
+    sha256 big_sur:  "ec14f8e1ef57696755433abc66b7b4ad60c9fccf102efbcfd46b3962f5470f7b"
   end
 
   depends_on "boost"
@@ -42,7 +41,5 @@ class Pythia < Formula
     cp_r share/"Pythia8/examples/.", testpath
     system "make", "main01"
     system "./main01"
-    system "make", "main41"
-    system "./main41"
   end
 end

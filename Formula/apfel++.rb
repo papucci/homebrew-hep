@@ -1,15 +1,13 @@
 class Apfelxx < Formula
   desc "Object oriented rewriting of the APFEL evolution code"
   homepage "https://github.com/vbertone/apfelxx"
-  url "https://github.com/vbertone/apfelxx/archive/4.6.0.tar.gz"
-  sha256 "37ad4121dfa5726ebe09cd2b7cf148976feb063ec6aeae7332ad9adc29c41543"
-  revision 1
+  url "https://github.com/vbertone/apfelxx/archive/4.7.0.tar.gz"
+  sha256 "01eff0c14e16a83ad25e34159985d7ee33264822585495003e090db57c66a1ac"
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "24473d21312cbc2d01037192071f87b7daba220e2741b58ecd16879b086c8983"
-    sha256 cellar: :any, big_sur:  "e5dabd91b019dcccf51f0a6030c484abd08fca297f52165deadd1be737ef7530"
-    sha256 cellar: :any, catalina: "eada3297fddd84f04a6a9c60dbb7876b4aeb1c002cbd8b449cdefec1ce1ed12a"
+    sha256 cellar: :any, monterey: "cfb805b7a0b8538f312b53951b41ebbbbb1679806a9fb8155ef430267a0e6ece"
+    sha256 cellar: :any, big_sur:  "3ad6a6559b04a6982914febf07b5815e5555ce82055c1cd255a5367450e4e394"
   end
 
   depends_on "cmake" => :build

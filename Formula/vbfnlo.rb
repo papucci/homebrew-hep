@@ -3,6 +3,7 @@ class Vbfnlo < Formula
   homepage "https://www.itp.kit.edu/vbfnlo"
   url "https://www.itp.kit.edu/vbfnlo/wiki/lib/exe/fetch.php?media=download:vbfnlo-3.0.0beta5.tgz"
   sha256 "d7ce67aa394a6b47da33ede3a0314436414ec12d6c30238622405bdfb76cb544"
+  revision 2
 
   livecheck do
     skip "In longterm beta"
@@ -10,10 +11,9 @@ class Vbfnlo < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    rebuild 1
-    sha256 cellar: :any, monterey: "a201d2b48c6433a0cb2e2bdb9a8984ca9c70631e9bcffdbedc7e95a27c05dec1"
-    sha256 cellar: :any, big_sur:  "944b879b9f93277279313595fba2a2e4d31372c9ab0a3f7d8b9a0f14ed09c08a"
-    sha256 cellar: :any, catalina: "15e60fa3a3887b3605ff7949306185000084d76521bb48fb228884b2ff8d8b7b"
+    sha256 cellar: :any, monterey: "c0dd264d565a140cd52fddbb505d708adc0cf1e9cb5df00b2505cfcfeed36e31"
+    sha256 cellar: :any, big_sur:  "5e265f263077e70e6094c594454e3c43f590f9c4a62f88dda998a3d038999e70"
+    sha256 cellar: :any, catalina: "b48bc555d0e964157844e453c22aee8e36b76c2ad887b26d1ac37e9eda1b4420"
   end
 
   option "with-kk", "Enable Kaluza-Klein resonances"
@@ -33,7 +33,6 @@ class Vbfnlo < Formula
     args = %W[
       --disable-debug
       --disable-dependency-tracking
-      --enable-shared=no
       --prefix=#{prefix}
     ]
 
@@ -45,7 +44,13 @@ class Vbfnlo < Formula
     # https://github.com/davidchall/homebrew-hep/issues/203
     args << "--disable-quad"
 
+    # resolve gfortran compiler errors
     ENV.append "FCFLAGS", "-std=legacy"
+
+    # link to gfortran libraries
+    inreplace "utilities/Makefile.in",
+              "$(libVBFNLOUtilities_la_LIBADD) $(LIBS)",
+              "$(libVBFNLOUtilities_la_LIBADD) $(LIBS) $(FCLIBS)"
 
     system "./configure", *args
     system "make"

@@ -4,6 +4,7 @@ class Thepeg < Formula
   url "https://thepeg.hepforge.org/downloads/ThePEG-2.2.3.tar.bz2"
   sha256 "f21473197a761fc32917b08a8d24d2bfaf93ff57f3441fd605da99ac9de5d50b"
   license "GPL-3.0-only"
+  revision 1
 
   livecheck do
     url "https://thepeg.hepforge.org/downloads"
@@ -12,9 +13,9 @@ class Thepeg < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "4aea760158f86dd841f1b42beed8bef5c131bb1059a3a5ad3f21e8f08f8d3603"
-    sha256 big_sur:  "99a54ff9080a78a665a38310481030b5cc68ea3c19aa511e448c7e047bc57106"
-    sha256 catalina: "c9a02975c359e7f61582004b2e7c9f2f4b17b719dd44272b166e36e3df1f5a6b"
+    sha256 monterey: "4424afa6403ce5a6b0fd375aaddf41125dbfb900450517625fb9a8493e7b860d"
+    sha256 big_sur:  "3f53920a7d66478c3c5e324848730722b0c93d1439fac79df0343ba565c3daf3"
+    sha256 catalina: "f3c778fd9e7502ddc3d622959b2d9c9008a281ac829123ac86ce11710db4e54c"
   end
 
   head do
@@ -32,6 +33,7 @@ class Thepeg < Formula
   depends_on "gsl"
   depends_on "hepmc3"
   depends_on "lhapdf"
+  depends_on "rivet" => :recommended
 
   def install
     args = %W[
@@ -45,6 +47,8 @@ class Thepeg < Formula
       --with-hepmcversion=3
       --with-lhapdf=#{Formula["lhapdf"].opt_prefix}
     ]
+
+    args << "--with-rivet=#{Formula["rivet"].opt_prefix}" if build.with? "rivet"
 
     system "autoreconf", "-i" if build.head?
     system "./configure", *args

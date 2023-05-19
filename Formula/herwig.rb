@@ -6,6 +6,7 @@ class Herwig < Formula
   url "https://herwig.hepforge.org/downloads/Herwig-7.2.3.tar.bz2"
   sha256 "5599899379b01b09e331a2426d78d39b7f6ec126db2543e9d340aefe6aa50f84"
   license "GPL-3.0-only"
+  revision 1
 
   livecheck do
     url "https://herwig.hepforge.org/downloads"
@@ -14,9 +15,9 @@ class Herwig < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "23e0a0115b0077bf8b8fe4367e2e384e324a6ecaba6e16cf470d5140e5214462"
-    sha256 big_sur:  "3349d0dbf8d52bca6bbd522d42035b04183bf75755621600e0d154db56b70bfc"
-    sha256 catalina: "f21c7d39637ac707d8a461c702322d43be7ca104d508973a2302fca1eb8eaffe"
+    sha256 monterey: "a9e34d09a603eab00b5ba4f7482c13b2d5d53d5b5d589d2ba1515b0eba6007c3"
+    sha256 big_sur:  "a6a8158cf8364924d862f784f22ec5482caf79695624f8385dea588695eaa36d"
+    sha256 catalina: "1f606460720c72877d5dd85ad7ea64fdf375ef199e65d428edeb202000bb947d"
   end
 
   head do

@@ -3,8 +3,8 @@ class Lhapdf < Formula
 
   desc "PDF interpolation and evaluation"
   homepage "https://lhapdf.hepforge.org/"
-  url "https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.1.tar.gz"
-  sha256 "1256419e2227d1a4f93387fe1da805e648351417d3755e8af5a30a35a6a66751"
+  url "https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.3.tar.gz"
+  sha256 "57435cd695e297065d53e69bd29090765c934936b6a975ff8c559766f2230359"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -14,9 +14,9 @@ class Lhapdf < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "ce6b18b94fd95b6d134aeec3c4a528c21e9028db9d6f0186f3a3db21ffff1b1d"
-    sha256 big_sur:  "36f3fd3b8b5be592f71b30b490121ff29b6a62ef8f6849efae894416b821a2f0"
-    sha256 catalina: "4498fe86aadfa323eeafaa670b975e1350c92726d1b4e927478b3a202ba06307"
+    sha256 monterey: "8ac041f9166e92beaf547c36d654cd76ecdccb82985cf1a9207d9926181c1ef5"
+    sha256 big_sur:  "53bc6ec90e5134be7e5b9f9d92e41502f4b6193586e1af34402054e0efdb9221"
+    sha256 catalina: "0c69beafb2ca891b920ed07937368b5623c88d07d982f208040c2a8866573260"
   end
 
   head do
@@ -28,13 +28,17 @@ class Lhapdf < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "python@3.9"
+  depends_on "python@3.10"
 
   patch :DATA
 
+  def python
+    "python3.10"
+  end
+
   def install
-    ENV.prepend_path "PATH", Formula["python@3.9"].opt_libexec/"bin"
-    ENV.prepend_create_path "PYTHONPATH", prefix/Language::Python.site_packages("python3.9")
+    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
+    ENV.prepend_create_path "PYTHONPATH", prefix/Language::Python.site_packages(python)
 
     args = %W[
       --disable-dependency-tracking
@@ -42,14 +46,9 @@ class Lhapdf < Formula
     ]
 
     system "autoreconf", "-i" if build.head?
-    system "./configure", "--disable-python", *args
+    system "./configure", *args
     system "make"
     system "make", "install"
-
-    system "./configure", "--enable-python", *args
-    cd "wrappers/python" do
-      system "python3", *Language::Python.setup_install_args(prefix)
-    end
 
     rewrite_shebang detected_python_shebang, bin/"lhapdf"
   end
@@ -67,23 +66,38 @@ class Lhapdf < Formula
   end
 
   test do
-    python = Formula["python@3.9"].opt_bin/"python3"
     system bin/"lhapdf", "--help"
-    system python, "-c", "import lhapdf"
+    system Formula["python@3.10"].opt_bin/python, "-c", "import lhapdf"
   end
 end
 
 __END__
-diff --git a/wrappers/python/setup.py.in b/wrappers/python/setup.py.in
-index 21a3d27..5b52590 100644
---- a/wrappers/python/setup.py.in
-+++ b/wrappers/python/setup.py.in
-@@ -22,7 +22,7 @@ libdir = os.path.abspath("@top_builddir@/src/.libs")
- ext = Extension("lhapdf",
-                 ["lhapdf.cpp"],
-                 include_dirs=[incdir_src, incdir_build],
--                extra_compile_args=["-I@prefix@/include"],
-+                extra_compile_args=["-std=c++11", "-I@prefix@/include"],
-                 library_dirs=[libdir],
-                 language="C++",
-                 libraries=["stdc++", "LHAPDF"])
+diff --git a/wrappers/python/build.py.in b/wrappers/python/build.py.in
+index c9d6710..8c2e633 100644
+--- a/wrappers/python/build.py.in
++++ b/wrappers/python/build.py.in
+@@ -34,23 +34,12 @@ libargs = " ".join("-l{}".format(l) for l in libraries)
+
+ ## Python compile/link args
+ pyargs = "-I" + sysconfig.get_config_var("INCLUDEPY")
+-libpys = [os.path.join(sysconfig.get_config_var(ld), sysconfig.get_config_var("LDLIBRARY")) for ld in ["LIBPL", "LIBDIR"]]
+-libpy = None
+-for lp in libpys:
+-    if os.path.exists(lp):
+-        libpy = lp
+-        break
+-if libpy is None:
+-    print("No libpython found in expected location {}, exiting".format(libpy))
+-    sys.exit(1)
+-pyargs += " " + libpy
+ pyargs += " " + sysconfig.get_config_var("LIBS")
+ pyargs += " " + sysconfig.get_config_var("LIBM")
+-pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
+
+
+ ## Assemble the compile & link command
+-compile_cmd = "  ".join([os.environ.get("CXX", "g++"), "-shared -fPIC",
++compile_cmd = "  ".join([sysconfig.get_config_var("LDCXXSHARED"), "-std=c++11",
+                          "-o", srcname.replace(".cpp", ".so"),
+                          srcpath, incargs, cmpargs, linkargs, libargs, pyargs])
+ print("Build command =", compile_cmd)

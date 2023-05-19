@@ -1,10 +1,9 @@
 class Hepmc3 < Formula
   desc "C++ event record for Monte Carlo generators"
   homepage "https://hepmc.web.cern.ch/"
-  url "https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.2.5.tar.gz"
-  sha256 "cd0f75c80f75549c59cc2a829ece7601c77de97cb2a5ab75790cac8e1d585032"
-  license "GPL-3.0-or-later"
-  revision 1
+  url "https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.2.6.tar.gz"
+  sha256 "248f3b5b36dd773844cbe73d51f60891458334b986b259754c59dbf4bbf1d525"
+  license "LGPL-3.0-or-later"
 
   livecheck do
     url "https://hepmc.web.cern.ch/hepmc/"
@@ -13,18 +12,22 @@ class Hepmc3 < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "712a1f121f0068b8e728edc70f367a8e73e2b127541000a7439f340391aa2479"
-    sha256 cellar: :any, big_sur:  "83680442908866dc286291b8158d195b8eb42b73fa7bbcf545929a4e3908be6f"
-    sha256 cellar: :any, catalina: "8859f256ea68856522ac217017de97b12528f7b6e2f756fd3ab66e7f61cc6cc7"
+    rebuild 1
+    sha256 cellar: :any, monterey: "c23ed0a007c130b6b5e3866cd299b63ab9457a5cba0c1d04383865b3c576a28e"
+    sha256 cellar: :any, big_sur:  "2248251cac9e1d4783a964dbffbfe047e4ba572ba8de86bb7267b9235f707a6f"
   end
 
   option "with-test", "Test during installation"
-  option "with-root", "Enable root IO"
 
   depends_on "cmake" => [:build, :test]
   depends_on "coreutils" # HepMC3-config uses greadlink
-  depends_on "python@3.9"
+  depends_on "python@3.10"
+  depends_on "protobuf" => :optional
   depends_on "root" => :optional
+
+  def python
+    "python3.10"
+  end
 
   def install
     mkdir "../build" do
@@ -32,12 +35,13 @@ class Hepmc3 < Formula
         -DCMAKE_INSTALL_PREFIX=#{prefix}
         -DHEPMC3_INSTALL_INTERFACES=ON
         -DHEPMC3_BUILD_STATIC_LIBS=OFF
-        -DHEPMC3_PYTHON_VERSIONS=3.9
-        -DHEPMC3_Python_SITEARCH39=#{prefix/Language::Python.site_packages("python3.9")}
+        -DHEPMC3_PYTHON_VERSIONS=3.10
+        -DHEPMC3_Python_SITEARCH310=#{prefix/Language::Python.site_packages(python)}
       ]
 
       args << "-DHEPMC3_ENABLE_TEST=ON" if build.with? "test"
       args << "-DHEPMC3_ENABLE_ROOTIO=OFF" if build.without? "root"
+      args << "-DHEPMC3_ENABLE_PROTOBUFIO=ON" if build.with? "protobuf"
 
       system "cmake", buildpath, *args
       system "make"
@@ -49,8 +53,7 @@ class Hepmc3 < Formula
   test do
     assert_equal prefix.to_s, shell_output(bin/"HepMC3-config --prefix").strip
 
-    python = Formula["python@3.9"].opt_bin/"python3"
-    system python, "-c", "import pyHepMC3"
+    system Formula["python@3.10"].opt_bin/python, "-c", "import pyHepMC3"
 
     cp_r share/"doc/HepMC3/examples/.", testpath
     system "cmake", "-DUSE_INSTALLED_HEPMC3=ON", "CMakeLists.txt"

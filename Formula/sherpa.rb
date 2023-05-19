@@ -1,9 +1,10 @@
 class Sherpa < Formula
   desc "Monte Carlo event generator"
   homepage "https://sherpa-team.gitlab.io"
-  url "https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.12.tar.gz"
-  sha256 "529464775ca828b9dc965110526f340de743b6003c1e6f8abe2fc14550aed001"
+  url "https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.15.tar.gz"
+  sha256 "df3bcb6b593f6e6eee396294b13c90337f5c3c15c92651753a03e0ce7975864b"
   license "GPL-2.0-only"
+  revision 1
 
   livecheck do
     url "https://sherpa.hepforge.org/downloads"
@@ -12,9 +13,8 @@ class Sherpa < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "c51468fa8f5579c92eb40a0e83091ae70f335dda7c2d38e1e61b1a703a61159b"
-    sha256 big_sur:  "88502aec643f4dd47e57eedc43533d3eac5468caa8032154178142af6e8063cf"
-    sha256 catalina: "ea34fbb85c736eaefd9a31103f35c2d71e675c94354e19b4b72ef3c39db3752d"
+    sha256 monterey: "060c750c2cb885e8c8998dc572dacbb8518c75f812984626d19b11110d4f1c0c"
+    sha256 big_sur:  "b47aa1f089999adb58193a5f3b09d5f9f7c1775fd5c7d081fc78e768cfd49df9"
   end
 
   depends_on "autoconf" => :build
@@ -27,8 +27,6 @@ class Sherpa < Formula
   depends_on "root"    => :optional
 
   def install
-    ENV.cxx11
-
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
@@ -42,6 +40,9 @@ class Sherpa < Formula
     args << "--enable-lhapdf=#{Formula["lhapdf"].opt_prefix}"   if build.with? "lhapdf"
     args << "--enable-rivet=#{Formula["rivet"].opt_prefix}"     if build.with? "rivet"
     args << "--enable-root=#{Formula["root"].opt_prefix}"       if build.with? "root"
+
+    # rivet requires C++14
+    ENV.append "CXXFLAGS", "-std=c++14"
 
     system "./configure", *args
     system "make"
