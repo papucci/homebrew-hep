@@ -15,9 +15,9 @@ class Jetvheto < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "81153b6f3b612d32957845a7ce02c66b8a6d15d000c9a4cf966815cc271b0278"
-    sha256 cellar: :any, big_sur:  "4e54ecc432ccc7e8ab68b4b53ca00067bb31ffb206bb77754d793750b63f4e52"
-    sha256 cellar: :any, catalina: "58a768e3b9fe3077a8a56c4c15902d999415c11ed8f6cf2da21b428955d6f437"
+    rebuild 1
+    sha256 cellar: :any, arm64_sonoma: "515cb4ec325276691eb776e57dc53c018ab8f846f34a6fc55e0e16d5e334669b"
+    sha256 cellar: :any, ventura:      "253b6ce4a3bc3f698c9f6a0ed55c3fde6c133d46b470c17b897982317a6cd9e7"
   end
 
   depends_on "chaplin"

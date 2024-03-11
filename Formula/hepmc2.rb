@@ -7,10 +7,9 @@ class Hepmc2 < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    rebuild 1
-    sha256 cellar: :any, monterey: "8356e9c1015f3fa94b10353c6b9576dbe10eedae93d582f2d12ddc69593afba6"
-    sha256 cellar: :any, big_sur:  "7286697a692029d4cfa8d8d9f95afa8c662f96894b241f14f923c596d88ed971"
-    sha256 cellar: :any, catalina: "a15dbef41ec9a792fa5308f6d6c26a943f5944978f269b49969294a7cf813603"
+    rebuild 3
+    sha256 cellar: :any, arm64_sonoma: "a100ed1d92ff3f3f703103c1d704f55858c423cd1c91d5eef02c5765289c2c84"
+    sha256 cellar: :any, ventura:      "116cb869287b55c50c7e7fce6e6a6ec0a92a5ad21fd6ae98f8f1fc6325ad5519"
   end
 
   option "with-test", "Test during installation"

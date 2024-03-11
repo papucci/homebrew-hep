@@ -3,10 +3,9 @@ class Rivet < Formula
 
   desc "Monte Carlo analysis system"
   homepage "https://rivet.hepforge.org"
-  url "https://rivet.hepforge.org/downloads/?f=Rivet-3.1.7.tar.gz"
-  sha256 "d18993298b79cc9c0f086780ad5251df4647c565ba4a99b692458dcbd597378a"
+  url "https://rivet.hepforge.org/downloads/?f=Rivet-3.1.10.tar.gz"
+  sha256 "534389243e7fa3a407a08ac00a4cac9a133d03aedb0b334c19f4edc5889db343"
   license "GPL-3.0-only"
-  revision 1
 
   livecheck do
     url "https://rivet.hepforge.org/downloads/"
@@ -15,8 +14,8 @@ class Rivet < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 monterey: "54124f92f663ac143dc672abce492fa7a4b95e771a26550f0c0abacac3fcf4d3"
-    sha256 big_sur:  "e852c85f6c9ed3bd47dd56371366e2cb1baf3ba4676a15c8ae87d00dc3bea160"
+    sha256 arm64_sonoma: "8c86aeda66a4952b1806612170ad5103ba3072a09edb242966427f1369af5879"
+    sha256 ventura:      "2aa01d51b11bf444a61378b413a08788c5a7d3d0422e717e00278705af2f600d"
   end
 
   head do
@@ -40,8 +39,8 @@ class Rivet < Formula
 
   # rivet needs a special installation of fjcontrib
   resource "fjcontrib" do
-    url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.048.tar.gz"
-    sha256 "f9989d3b6aeb22848bcf91095c30607f027d3ef277a4f0f704a8f0fc2e766981"
+    url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.051.tar.gz"
+    sha256 "76a2ec612c768db3eb6bbaf686d02b05ddb64dde477d185e20df563b52308473"
   end
 
   patch :DATA
@@ -74,21 +73,24 @@ class Rivet < Formula
     args << "--disable-analyses" if build.without? "analyses"
     args << "--enable-unvalidated" if build.with? "unvalidated"
 
-    ENV["PYTHON"] = Formula["python@3.10"].opt_bin/python
-
     system "autoreconf", "-i" if build.head?
+
+    # rivet attempts to install to HOMEBREW_PREFIX/lib/pythonX.Y/site-packages
+    prefix_site_packages = prefix/Language::Python.site_packages(python)
+    inreplace "configure", /(?<!#)RIVET_PYTHONPATH=.+/, "RIVET_PYTHONPATH=#{prefix_site_packages}"
+
     system "./configure", *args
     system "make"
-    system "make", "check" if build.with? "test"
     system "make", "install"
+    system "make", "check" if build.with? "test"
 
-    prefix.install "test"
+    prefix.install "test/testApi.hepmc"
     rewrite_shebang detected_python_shebang, *bin.children
   end
 
   test do
     system Formula["python@3.10"].opt_bin/python, "-c", "import rivet"
-    pipe_output bin/"rivet -q", File.read(prefix/"test/testApi.hepmc"), 0
+    pipe_output bin/"rivet -q", File.read(prefix/"testApi.hepmc"), 0
   end
 end
 

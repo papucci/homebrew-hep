@@ -3,8 +3,8 @@ class Yoda < Formula
 
   desc "Yet more Objects for Data Analysis"
   homepage "https://yoda.hepforge.org"
-  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.7.tar.gz"
-  sha256 "abff3e56bc360e38b2dd32d49bd962d6e773e97da1d50140ac4703daa1d51c8b"
+  url "https://yoda.hepforge.org/downloads/?f=YODA-1.9.10.tar.gz"
+  sha256 "b9b978bdf34d688485c26b66c749c7584ee78e825961707367da54d5b95640fb"
   license "GPL-3.0-only"
 
   livecheck do
@@ -14,9 +14,8 @@ class Yoda < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "ed70e1312d864f0a671a9d7c2767a22771d9cc86b8342f307a71b030711a4a26"
-    sha256 cellar: :any, big_sur:  "acba1f871ace2cb3e0dc2c9f8ff70b901c565b360b79ff9c53fc15e3fbb8205f"
-    sha256 cellar: :any, catalina: "c7fc2ec2794cab2e241fdfd585e979da723c7c6147da9ddf735cec860fc401c1"
+    sha256 arm64_sonoma: "a3cd8db06e14abadffd88de927066c1fd4f7aba155598c6465dc23cdc71c2eed"
+    sha256 ventura:      "aa12d416660611aea38f15a6ca03bfd0c34df141662c98994c22e41213986cd4"
   end
 
   head do
@@ -30,9 +29,14 @@ class Yoda < Formula
   option "with-test", "Test during installation"
 
   depends_on "python@3.10"
-  depends_on "numpy" => :optional
   depends_on "root" => :optional
   depends_on "python"
+
+  if build.with? "test"
+    depends_on "numpy"
+  else
+    depends_on "numpy" => :optional
+  end
 
   patch :DATA
 
@@ -41,8 +45,6 @@ class Yoda < Formula
   end
 
   def install
-    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
-
     args = %W[
       --disable-debug
       --disable-dependency-tracking
@@ -64,8 +66,8 @@ class Yoda < Formula
     system "autoreconf", "-i" if build.head?
     system "./configure", *args
     system "make"
-    system "make", "check" if build.with? "test"
     system "make", "install"
+    system "make", "check" if build.with? "test"
 
     rewrite_shebang detected_python_shebang, *bin.children
   end

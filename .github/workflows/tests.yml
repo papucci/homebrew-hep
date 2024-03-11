@@ -8,16 +8,20 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [macos-11, macos-12, macos-13]
+        os: [macos-13, macos-14]
     runs-on: ${{ matrix.os }}
     steps:
+      # temporarily for MCFM
+      - name: Choose MacOS SDK
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app
+
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Cache Homebrew Bundler RubyGems
         id: cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
@@ -27,23 +31,19 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
 
-      # Xcode 14 bug: https://stackoverflow.com/questions/73714336
-      - name: Override Xcode version
-        if: matrix.os == 'macos-12'
-        run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app'
-
       - run: brew test-bot --only-cleanup-before
 
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
 
-      - run: brew test-bot --only-formulae --root-url=https://ghcr.io/v2/davidchall/hep
+      - run: brew test-bot --only-formulae --skip-dependents --root-url=https://ghcr.io/v2/davidchall/hep
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v3
         with:
           name: bottles
           path: '*.bottle.*'
+          if-no-files-found: error

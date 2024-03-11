@@ -3,8 +3,8 @@ class F2c < Formula
   homepage "https://www.netlib.org/f2c/"
   url "https://netlib.sandia.gov/f2c/libf2c.zip"
   # brew audit errors on head-only formula (hack: set version to YYYY.MM.DD)
-  version "2022.04.25"
-  sha256 "ca404070e9ce0a9aaa6a71fc7d5489d014ade952c5d6de7efb88de8e24f2e8e0"
+  version "2024.02.22"
+  sha256 "cc84253b47b5c036aa1d529332a6c218a39ff71c76974296262b03776f822695"
 
   livecheck do
     skip "No version information available"
@@ -12,20 +12,18 @@ class F2c < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, monterey: "9fca4caf6891bdd46e29f4768ddc52818e985047935aa767104178d87fd40a79"
-    sha256 cellar: :any_skip_relocation, big_sur:  "a0890f7c39400305d7eb3ce750934349cd66c53eb6727ad50e89236b691649c5"
-    sha256 cellar: :any_skip_relocation, catalina: "8a18288b8722e77aca1f1d771cb5d049486ff47ce40527c18ea5627cbfff8cc7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "4ce3b9b1aa3c16b06fb5bea8b07b0e13e14a3f5b5db08c5e3784b3583891a06d"
+    sha256 cellar: :any_skip_relocation, ventura:      "852176593dad5149ca38e0d0219df3fae1a0ec0f19da9bceb5fcd409b5a4b7ed"
   end
 
   resource "f2cexecutablesrc" do
     url "https://netlib.sandia.gov/f2c/src.tgz"
-    sha256 "d4847456aa91c74e5e61e2097780ca6ac3b20869fae8864bfa8dcc66f6721d35"
+    sha256 "61c891d426edb05bc647d6f7fc345c2e7f4dce55d092c54a8fc5e1af483a3235"
   end
 
   resource "f2cman" do
     url "https://netlib.sandia.gov/f2c/f2c.1t", using: :nounzip
-    sha256 "d37a61295b245906a81d262a667f2a4491f5bd9243b07d46a6fb2e1689e8e8e5"
+    sha256 "af6559cbfcb194a70f13535464ab62d948541cfb48a258e13145b99622eea6b7"
   end
 
   def install

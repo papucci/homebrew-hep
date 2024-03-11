@@ -1,10 +1,9 @@
 class Fastjet < Formula
   desc "Package for jet finding in pp and ee collisions"
   homepage "https://fastjet.fr"
-  url "https://fastjet.fr/repo/fastjet-3.4.0.tar.gz"
-  sha256 "ee07c8747c8ead86d88de4a9e4e8d1e9e7d7614973f5631ba8297f7a02478b91"
+  url "https://fastjet.fr/repo/fastjet-3.4.2.tar.gz"
+  sha256 "b3d33155b55ce43f420cd6d99b525acf7bdc2593a7bb7ea898a9ddb3d8ca38e3"
   license "GPL-2.0-or-later"
-  revision 1
 
   livecheck do
     url "http://fastjet.fr/all-releases.html"
@@ -13,9 +12,9 @@ class Fastjet < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "6e6f1ba39501284c160b663366f8997a8f75dbb372bb56eac188dc59e3eac002"
-    sha256 cellar: :any, big_sur:  "e5b33f49864f0da21b01221f68a6d10054aecbd23c21963b06e0925bf2e6533c"
-    sha256 cellar: :any, catalina: "71a0340ffe9e82a94f3420001c4cefd66aa549967b48ca9bb8a138796af6980b"
+    rebuild 1
+    sha256 cellar: :any, arm64_sonoma: "081d2f3649258e79b01fac9ec1a963307ae49d269db95516569206aab82f66d7"
+    sha256 cellar: :any, ventura:      "21a55a9714fcb7c23613c892f8d5fb9c0c0a958797545e4181ea882aa494d83d"
   end
 
   option "without-cgal", "Disable CGAL support (required for NlnN strategy)"

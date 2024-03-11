@@ -1,10 +1,9 @@
 class Partons < Formula
   desc "PARtonic Tomography Of Nucleon Software"
   homepage "https://drf-gitlab.cea.fr/partons/core/partons"
-  url "https://drf-gitlab.cea.fr/partons/core/partons/-/archive/v3.0/partons-v3.0.tar.gz"
-  sha256 "03a5c6382e74d89f479a85fdcc3246403b6a5c3663a04710fb39321c2002da83"
+  url "https://drf-gitlab.cea.fr/partons/core/partons/-/archive/v4.0/partons-v4.0.tar.gz"
+  sha256 "ecd6f5c307e20cb096ce4bfc5d917f84d8f9201f5090c4dfb54472174d93811f"
   license all_of: ["Apache-2.0", "GPL-3.0-only"]
-  revision 2
 
   livecheck do
     url :stable
@@ -13,9 +12,9 @@ class Partons < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "a40f77bb02886fa7fd04fe14e1c58c58250c4191a08f5c10366180b2e4ec820b"
-    sha256 cellar: :any, big_sur:  "3f74552eba67822c3e176eb51b72d58f062e3f3a5fd1aa47c19e76bf8702f8bf"
-    sha256 cellar: :any, catalina: "c0e7d2d9d46cf24297d1d93e685b38a8be3e1f10dd36dd94336e1145acb3f2af"
+    rebuild 1
+    sha256 cellar: :any, arm64_sonoma: "716c9d058b9e0260608fd1fdf768ff87eb0ce394dccca3b1b344e35fac936fd9"
+    sha256 cellar: :any, ventura:      "f420ad19b606065a96b2e131a67ef2705d0935cdc1ff2fb753f30a11e5aabfcc"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -29,18 +28,18 @@ class Partons < Formula
   depends_on "sfml"
 
   resource "elementary-utils" do
-    url "https://drf-gitlab.cea.fr/partons/core/elementary-utils/-/archive/v3.0/elementary-utils-v3.0.tar.gz"
-    sha256 "cddddf26b7d0104530e75a34ed46ec0bbabd881f17ea51f0efe01265c923e812"
+    url "https://drf-gitlab.cea.fr/partons/core/elementary-utils/-/archive/v4.0/elementary-utils-v4.0.tar.gz"
+    sha256 "cc0f5f7da32464bdde63301dac353325c3b80b0077c01dcc9890041ed9110ffc"
   end
 
   resource "numa" do
-    url "https://drf-gitlab.cea.fr/partons/core/numa/-/archive/v3.0/numa-v3.0.tar.gz"
-    sha256 "d7c15d25d092d72be55346d8c3192dc81b08ebd93b3e62b37fc809cd598d96e9"
+    url "https://drf-gitlab.cea.fr/partons/core/numa/-/archive/v4.0/numa-v4.0.tar.gz"
+    sha256 "1a601377f2a0c69516ae801c27f77768051811b6c1eda2baaeb15d61896b7d2a"
   end
 
   resource "partons-test" do
-    url "https://drf-gitlab.cea.fr/partons/core/partons-example/-/archive/v3.0/partons-example-v3.0.tar.gz"
-    sha256 "f4f7feb64c0afd53f054cedd6c5ca91e0267c4d423986e54ce3d1e8a6cb329c6"
+    url "https://drf-gitlab.cea.fr/partons/core/partons-example/-/archive/v4.0/partons-example-v4.0.tar.gz"
+    sha256 "0e0d258e763c13677790b1d92e3b09fc5553c62b320762f0da8ec36d62166cfc"
   end
 
   def install

@@ -7,7 +7,7 @@ class Fastnlo < Formula
   version "2.5.0"
   sha256 "eda20c6023a41c2ff5ec21d88847ebc6fb522714c38afad2ec1437d9c1a2132d"
   license "GPL-3.0-only"
-  revision 1
+  revision 2
 
   livecheck do
     url :homepage
@@ -16,9 +16,8 @@ class Fastnlo < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "21b03b289194d24aff0f7bec0cbfea4b4ecf74889ce1eb2643717f2deb0c8b4b"
-    sha256 cellar: :any, big_sur:  "f3e40a12ffdf6d182d29a843f2a0cc0d8667caaaecc5035d5ab85d809fd1abf7"
-    sha256 cellar: :any, catalina: "ab30fb3cd1097ede185b2d3cf9c794fc094d3490d2212f6789948daa0493abab"
+    sha256 cellar: :any, arm64_sonoma: "fe75690381d3901102ced08a6c5c0246165e509d41fea6c2466e07c1afc6c250"
+    sha256 cellar: :any, ventura:      "967010a423295554dea21b9f6d145812d04e6da2900fea34f51a3da3855ff7e9"
   end
 
   option "with-test", "Test during installation"
@@ -29,14 +28,6 @@ class Fastnlo < Formula
   depends_on "qcdnum"  => :optional
   depends_on "root"    => :optional
   depends_on "yoda"    => :optional
-
-  if build.with? "python"
-    depends_on "swig"    => :build
-  end
-
-  def am_opt(pkg)
-    build.with? pkg ? "--with-#{pkg}=#{Formula[pkg].opt_prefix}" : "--without-#{pkg}"
-  end
 
   def install
     ENV.cxx11
@@ -55,11 +46,11 @@ class Fastnlo < Formula
       --with-lhapdf=#{Formula["lhapdf"].opt_prefix}
     ]
 
-    args << am_opt("fastjet")
-    args << am_opt("qcdnum")
-    args << am_opt("hoppet")
-    args << am_opt("yoda")
-    args << am_opt("root")
+    args << "--with-fastjet=#{Formula["fastjet"].opt_prefix}" if build.with? "fastjet"
+    args << "--with-hoppet=#{Formula["hoppet"].opt_prefix}"   if build.with? "hoppet"
+    args << "--with-qcdnum=#{Formula["qcdnum"].opt_prefix}"   if build.with? "qcdnum"
+    args << "--with-root=#{Formula["root"].opt_prefix}"       if build.with? "root"
+    args << "--with-yoda=#{Formula["yoda"].opt_prefix}"       if build.with? "yoda"
 
     system "./configure", *args
     system "make"

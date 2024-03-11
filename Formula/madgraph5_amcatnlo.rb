@@ -3,10 +3,9 @@ class Madgraph5Amcatnlo < Formula
 
   desc "Automated LO and NLO processes matched to parton showers"
   homepage "https://launchpad.net/mg5amcnlo"
-  url "https://launchpad.net/mg5amcnlo/3.0/3.4.x/+download/MG5_aMC_v3.4.2.tar.gz"
-  sha256 "ca8631e10cc384f9d05a4d3311f6cb101eeaa57cb39ab7325ee5d1aec1fe218f"
+  url "https://launchpad.net/mg5amcnlo/3.0/3.5.x/+download/MG5_aMC_v3.5.3.tar.gz"
+  sha256 "796ef4e1e524abc572c0c2b4b31622ddd8b258f78c20b04bd6945779d16d0a27"
   license "NCSA"
-  revision 2
 
   livecheck do
     url "https://launchpad.net/mg5amcnlo/+download"
@@ -15,8 +14,8 @@ class Madgraph5Amcatnlo < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, monterey: "622cba4ed27785e89f53e5e2e8c55719870b5cf654b75b4f7692cf75c770b385"
-    sha256 cellar: :any, big_sur:  "d8ae21e5bfcd4319933bf77142305c04e451d4164f03c4710cdc3f12a92f2e0d"
+    sha256 cellar: :any, arm64_sonoma: "c8eceff933471b060ee5320c6650870c4b3a0d5651cc1feb402c5bf483d8cf89"
+    sha256 cellar: :any, ventura:      "ceb5b7112f8ff9bcad57bfcaef5cad841e40c25165d24ba446330a2fadc38350"
   end
 
   depends_on "fastjet"
