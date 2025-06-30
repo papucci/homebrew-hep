@@ -1,8 +1,8 @@
 class Fastjet < Formula
   desc "Package for jet finding in pp and ee collisions"
   homepage "https://fastjet.fr"
-  url "https://fastjet.fr/repo/fastjet-3.4.2.tar.gz"
-  sha256 "b3d33155b55ce43f420cd6d99b525acf7bdc2593a7bb7ea898a9ddb3d8ca38e3"
+  url "https://fastjet.fr/repo/fastjet-3.4.3.tar.gz"
+  sha256 "cc175471bfab8656b8c6183a8e5e9ad05d5f7506e46f3212a9a8230905b8f6a3"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -12,9 +12,8 @@ class Fastjet < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    rebuild 1
-    sha256 cellar: :any, arm64_sonoma: "081d2f3649258e79b01fac9ec1a963307ae49d269db95516569206aab82f66d7"
-    sha256 cellar: :any, ventura:      "21a55a9714fcb7c23613c892f8d5fb9c0c0a958797545e4181ea882aa494d83d"
+    sha256 cellar: :any, arm64_sonoma: "48190c33a348b353776b0838ea4053bc9139ccac8647f630df9a0a975218682f"
+    sha256 cellar: :any, ventura:      "f35c50bc42f4ebbdae648613e18a8cba1b342950f9c8b39c323aae20bd22ded5"
   end
 
   option "without-cgal", "Disable CGAL support (required for NlnN strategy)"

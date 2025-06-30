@@ -1,8 +1,8 @@
 class Fjcontrib < Formula
   desc "Package of contributed add-ons to FastJet"
   homepage "https://fastjet.hepforge.org/contrib/"
-  url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.054.tar.gz"
-  sha256 "1ef922d4c45863e5fe7a3b64dc441703db6b1c2cc92d4160125dc629b05ac331"
+  url "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.055.tar.gz"
+  sha256 "d9aa46560fdfd85082f202a5a9ce64768fe0c598660f013206a8c9c17ecd0f36"
 
   livecheck do
     url "https://fastjet.hepforge.org/contrib/downloads"
@@ -11,8 +11,8 @@ class Fjcontrib < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "1c95f6839605967ce0857a1b055bf7aaeaef3a6ee5e6e83674458ca66486d239"
-    sha256 cellar: :any_skip_relocation, ventura:      "abf97fa26edccc2c290ecfce344a655ea7cf83cb0324f95f338d23d3eaf4e2b2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma: "5ff87291acc5892c361dd0c1ee7c398b4648aa44a0d701ca3646f3525f9344cc"
+    sha256 cellar: :any_skip_relocation, ventura:      "e41496c7ea51888c23b86d69a14e0ff3b611a00ff3d4eed63fa7f636086930ee"
   end
 
   option "with-test", "Test during installation"
