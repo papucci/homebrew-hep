@@ -35,8 +35,9 @@ class Hepmc3 < Formula
         -DCMAKE_INSTALL_PREFIX=#{prefix}
         -DHEPMC3_INSTALL_INTERFACES=ON
         -DHEPMC3_BUILD_STATIC_LIBS=OFF
-        -DHEPMC3_PYTHON_VERSIONS=3.10
-        -DHEPMC3_Python_SITEARCH310=#{prefix/Language::Python.site_packages(python)}
+        -DHEPMC3_PYTHON_VERSIONS=3.13
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        -DHEPMC3_Python_SITEARCH313=#{prefix/Language::Python.site_packages(python)}
       ]
 
       args << "-DHEPMC3_ENABLE_TEST=ON" if build.with? "test"
