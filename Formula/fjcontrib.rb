@@ -9,12 +9,6 @@ class Fjcontrib < Formula
     regex(/href=.*?fjcontrib[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma: "5ff87291acc5892c361dd0c1ee7c398b4648aa44a0d701ca3646f3525f9344cc"
-    sha256 cellar: :any_skip_relocation, ventura:      "e41496c7ea51888c23b86d69a14e0ff3b611a00ff3d4eed63fa7f636086930ee"
-  end
-
   option "with-test", "Test during installation"
 
   depends_on "fastjet"

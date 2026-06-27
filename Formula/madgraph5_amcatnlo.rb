@@ -12,12 +12,6 @@ class Madgraph5Amcatnlo < Formula
     regex(/href=.*?MG5_aMC[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    root_url "https://ghcr.io/v2/davidchall/hep"
-    sha256 cellar: :any, arm64_sonoma: "5aabeb28661c48ca2de77b7532d239620dba8b49022630ccdbba28f073411c75"
-    sha256 cellar: :any, ventura:      "ef0a2820f9b1cd7ded646277d0dd6241ad532469aeb4a6bacf7e6375d85325ce"
-  end
-
   depends_on "fastjet"
   depends_on "gcc" # for gfortran
   depends_on "python@3.12"
