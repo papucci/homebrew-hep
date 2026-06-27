@@ -1,9 +1,9 @@
 class Geant4 < Formula
   desc "Simulation toolkit for particle transport through matter"
   homepage "http://geant4.cern.ch"
-  url "http://cern.ch/geant4-data/releases/geant4-v11.0.2.tar.gz"
-  version "11.0.2"
-  sha256 "fc038db837312f74e3f8efd10b5d3ca87a999d483d4d8959c60b8a749221ec61"
+  url "https://gitlab.cern.ch/geant4/geant4/-/archive/v11.4.2/geant4-v11.4.2.tar.gz"
+  version "11.4.2"
+  sha256 "f9d5c7d108ae6be644d12997e0289e23e5d2da18df1cab9aaacd9b76412dfec6"
 
   option "with-g3tog4", "Use G3toG4 Library"
   option "with-gdml", "Use GDML"
@@ -17,23 +17,23 @@ class Geant4 < Formula
   depends_on "linuxbrew/xorg/glu" unless OS.mac?
 
   resource "G4NDL" do
-    url "http://cern.ch/geant4-data/datasets/G4NDL.4.6.tar.gz"
-    sha256 "9d287cf2ae0fb887a2adce801ee74fb9be21b0d166dab49bcbee9408a5145408"
+    url "http://cern.ch/geant4-data/datasets/G4NDL.4.7.1.tar.gz"
+    sha256 "d3acae48622118d2579de24a54d533fb2416bf0da9dd288f1724df1485a46c7c"
   end
 
   resource "G4EMLOW" do
-    url "http://cern.ch/geant4-data/datasets/G4EMLOW.8.0.tar.gz"
-    sha256 "d919a8e5838688257b9248a613910eb2a7633059e030c8b50c0a2c2ad9fd2b3b"
+    url "http://cern.ch/geant4-data/datasets/G4EMLOW.8.8.tar.gz"
+    sha256 "b60cfd63176f5d16107e2a25b35b235155032d1735d749670ca50fede12624cf"
   end
 
   resource "G4PhotonEvaporation" do
-    url "http://cern.ch/geant4-data/datasets/G4PhotonEvaporation.5.7.tar.gz"
-    sha256 "761e42e56ffdde3d9839f9f9d8102607c6b4c0329151ee518206f4ee9e77e7e5"
+    url "http://cern.ch/geant4-data/datasets/G4PhotonEvaporation.6.1.2.tar.gz"
+    sha256 "02149c0ab91d88ee24e78532558777e39a068b9fcdd199136101ff58e635e742"
   end
 
   resource "G4RadioactiveDecay" do
-    url "http://cern.ch/geant4-data/datasets/G4RadioactiveDecay.5.6.tar.gz"
-    sha256 "3886077c9c8e5a98783e6718e1c32567899eeb2dbb33e402d4476bc2fe4f0df1"
+    url "http://cern.ch/geant4-data/datasets/G4RadioactiveDecay.6.1.2.tar.gz"
+    sha256 "a40d7e3ebc64d35555c4a49d0ff1e0945cd605d84354d053121293914caea13a"
   end
 
   resource "G4SAIDDATA" do
@@ -42,18 +42,18 @@ class Geant4 < Formula
   end
 
   resource "G4PARTICLEXS" do
-    url "http://cern.ch/geant4-data/datasets/G4PARTICLEXS.4.0.tar.gz"
-    sha256 "9381039703c3f2b0fd36ab4999362a2c8b4ff9080c322f90b4e319281133ca95"
+    url "http://cern.ch/geant4-data/datasets/G4PARTICLEXS.4.2.tar.gz"
+    sha256 "c52bbf86aaa589b78aba80b16ab0adf1041ea300de5395865b97fcee6eb55851"
   end
 
   resource "G4ABLA" do
-    url "http://cern.ch/geant4-data/datasets/G4ABLA.3.1.tar.gz"
-    sha256 "7698b052b58bf1b9886beacdbd6af607adc1e099fc730ab6b21cf7f090c027ed"
+    url "http://cern.ch/geant4-data/datasets/G4ABLA.3.3.tar.gz"
+    sha256 "1e041b3252ee9cef886d624f753e693303aa32d7e5ef3bba87b34f36d92ea2b1"
   end
 
   resource "G4INCL" do
-    url "http://cern.ch/geant4-data/datasets/G4INCL.1.0.tar.gz"
-    sha256 "716161821ae9f3d0565fbf3c2cf34f4e02e3e519eb419a82236eef22c2c4367d"
+    url "http://cern.ch/geant4-data/datasets/G4INCL.1.3.tar.gz"
+    sha256 "e4b3dbe52acef53536454e22443091212843821bd23628eed846d299599f3bf9"
   end
 
   resource "G4PII" do
@@ -62,8 +62,8 @@ class Geant4 < Formula
   end
 
   resource "G4ENSDFSTATE" do
-    url "http://cern.ch/geant4-data/datasets/G4ENSDFSTATE.2.3.tar.gz"
-    sha256 "9444c5e0820791abd3ccaace105b0e47790fadce286e11149834e79c4a8e9203"
+    url "http://cern.ch/geant4-data/datasets/G4ENSDFSTATE.3.0.tar.gz"
+    sha256 "4bdc3bd40b31d43485bf4f87f055705e540a6557d64ed85c689c59c9a4eba7d6"
   end
 
   resource "G4RealSurface" do
@@ -74,6 +74,21 @@ class Geant4 < Formula
   resource "G4TENDL" do
     url "http://cern.ch/geant4-data/datasets/G4TENDL.1.4.tar.gz"
     sha256 "4b7274020cc8b4ed569b892ef18c2e088edcdb6b66f39d25585ccee25d9721e0"
+  end
+
+  resource "G4CHANNELING" do
+    url "http://cern.ch/geant4-data/datasets/G4CHANNELING.2.0.tar.gz"
+    sha256 "662159288644e07b79d7fe091efbebba52b59546b3dc6f5d285b976ad12f2d06"
+  end
+
+  resource "G4NUDEXLIB" do
+    url "http://cern.ch/geant4-data/datasets/G4NUDEXLIB.1.0.tar.gz"
+    sha256 "cac7d65e9c5af8edba2b2667d5822e16aaf99065c95f805e76de4cc86395f415"
+  end
+
+  resource "G4URRPT" do
+    url "http://cern.ch/geant4-data/datasets/G4URRPT.1.1.tar.gz"
+    sha256 "6a3432db80bc088aee19c504b9c0124913005d6357ea14870451400ab20d9c11"
   end
 
   def install
